@@ -1,0 +1,27 @@
+@* Placeholder for skill tags *@
+<div class="skill-tags">
+    @foreach (var skill in new[] { "C#", "Blazor", "SQL", "Azure", "Git" })
+    {
+        <span class="skill-tag">@skill</span>
+    }
+</div>
+
+@code {
+    // Replace with real skills later
+}
+
+<style>
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+.skill-tag {
+    background: #e0e7ff;
+    color: #3730a3;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.95em;
+}
+</style>
