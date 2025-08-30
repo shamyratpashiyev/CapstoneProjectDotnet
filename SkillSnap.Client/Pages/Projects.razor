@@ -1,0 +1,41 @@
+@page "/Projects"
+@using SkillSnap.Client.Components
+@using SkillSnap.Client.Dtos
+@using SkillSnap.Client.Services
+@inject ProjectService ProjectService
+
+<h1>Projects</h1>
+
+<div class="project-list">
+  @if (projects.Count == 0)
+  {
+    <p>Loading...</p>
+  }
+  @foreach (var item in projects)
+  {
+    <ProjectCard Input="item"></ProjectCard>
+  }
+</div>
+
+@code {
+  private List<ProjectDto> projects = new();
+  protected override async Task OnInitializedAsync()
+  {
+    projects = await ProjectService.GetListAsync();
+    await base.OnInitializedAsync();
+  }
+}
+
+<style>
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+
+    .project-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+  </style>

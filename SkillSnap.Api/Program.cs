@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using SkillSnap.Api.Data;
 
@@ -5,7 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+});
 builder.Services.AddDbContext<SkillSnapContext>(options =>
     options.UseSqlite("Data Source=Data/skillsnap.db"));
 
@@ -18,7 +22,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowClient", policy =>
     {
-        policy.WithOrigins("https://localhost:5001")
+        policy.WithOrigins("http://localhost:5106")
             .AllowAnyMethod()
             .AllowAnyHeader();
     });

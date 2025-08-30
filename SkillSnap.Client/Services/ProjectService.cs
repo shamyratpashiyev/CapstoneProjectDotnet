@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Text.Json;
 using SkillSnap.Client.Dtos;
 
 namespace SkillSnap.Client.Services;
@@ -17,7 +18,10 @@ public class ProjectService : BaseService
     
     public async Task<List<ProjectDto>> GetListAsync()
     {
-        return await _client.GetFromJsonAsync<List<ProjectDto>>(this.ApiUrl + "Projects");
+        var response = await _client.GetAsync(ApiUrl + "Projects");
+        response.EnsureSuccessStatusCode();
+
+        return await response.Content.ReadFromJsonAsync<List<ProjectDto>>();
     }
     
     public async Task<ProjectDto> CreateAsync(ProjectDto input)

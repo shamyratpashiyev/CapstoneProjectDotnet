@@ -1,0 +1,75 @@
+@using SkillSnap.Client.Dtos
+<div class="project-card">
+    <img src="@Input.ImageUrl" alt="Project Image">
+    <div class="project-content">
+        <h2 class="project-title">@Input.Title</h2>
+        <p class="project-description">
+            @Input.Description
+        </p>
+        <p class="project-meta">Project ID: @Input.Id | PortfolioUserId: @Input.PortfolioUserId</p>
+
+        <div class="user-info">
+            <p><strong>Portfolio User:</strong> @Input.PortfolioUser.Name</p>
+            <p><strong>Bio:</strong> @Input.PortfolioUser.Bio</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ProjectDto Input { get; set; }
+}
+
+<style>
+    .project-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        overflow: hidden;
+        transition: transform 0.2s ease;
+    }
+
+    .project-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .project-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .project-content {
+        padding: 1rem;
+    }
+
+    .project-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #2c3e50;
+        margin: 0 0 0.5rem;
+    }
+
+    .project-description {
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 0.75rem;
+    }
+
+    .project-meta {
+        font-size: 0.85rem;
+        color: #777;
+    }
+
+    .user-info {
+        margin-top: 1rem;
+        padding: 0.75rem;
+        background: #f1f5f9;
+        border-radius: 8px;
+        font-size: 0.9rem;
+    }
+
+    .user-info strong {
+        color: #333;
+    }
+</style>

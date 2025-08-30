@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SkillSnap.Api.Data;
 using SkillSnap.Api.Models;
 
@@ -16,9 +17,22 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetList()
+    public async Task<IActionResult> GetList()
     {
-        var projects = _context.Projects.ToList();
+        var projectQueryable = _context.Projects.AsQueryable();
+        var portfolioUserQueryable = _context.PortfolioUsers.AsQueryable();
+        var query = from p in projectQueryable
+            join pu in portfolioUserQueryable on p.PortfolioUserId equals pu.Id
+            select new Project()
+            {
+                Id = p.Id,
+                Title = p.Title,
+                PortfolioUserId = pu.Id,
+                Description = p.Description,
+                ImageUrl = p.ImageUrl,
+                PortfolioUser = pu
+            };
+        var projects = await query.ToListAsync();
         return Ok(projects);
     }
 

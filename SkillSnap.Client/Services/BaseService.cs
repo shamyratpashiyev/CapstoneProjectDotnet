@@ -2,7 +2,7 @@ namespace SkillSnap.Client.Services;
 
 public class BaseService
 {
-    public string ApiUrl { get; }
+    protected string ApiUrl { get; }
 
     public BaseService(IConfiguration configuration)
     {
